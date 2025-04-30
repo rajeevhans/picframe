@@ -1,4 +1,3 @@
-
 async function getData() {
     const response = await fetch("/?all");
     return response.json();
@@ -86,7 +85,8 @@ function refreshData() {
 
 function repeatRefresh() {
     refreshData();
-    setTimeout(repeatRefresh, 120000); //refresh every 120s in never-ending loop - faster occasionally changes values while being edited!
+    refreshImage();
+    setTimeout(repeatRefresh, 120000); //refresh every 120s in never-ending loop
 }
 
 
@@ -136,35 +136,85 @@ function afterFlash(element, css) {
 function setStyle() {
     var x = document.createElement("STYLE");
     var t = document.createTextNode("body {\
-        background-color: black;\
-        color:rgb(94, 89, 79);\
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;\
+        background-color: #1a1a1a;\
+        color: #e0e0e0;\
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\
+        line-height: 1.6;\
+        margin: 0;\
+        padding: 20px;\
+    }\
+    #current-image-container {\
+        margin-top: 20px;\
+        padding: 10px;\
+        background-color: #2c3e50;\
+        border-radius: 8px;\
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);\
+        display: flex;\
+        justify-content: center;\
+        align-items: center;\
+    }\
+    #current-image {\
+        max-width: 100%;\
+        max-height: 400px;\
+        object-fit: contain;\
+        border-radius: 4px;\
     }\
     button {\
-        margin: 5px;\
-        padding: 10px;\
+        margin: 8px;\
+        padding: 12px 20px;\
         border: none;\
-        border-radius: 8px;\
-        font-weight: bold;\
+        border-radius: 6px;\
+        font-weight: 600;\
+        background-color: #2c3e50;\
+        color: #ecf0f1;\
+        cursor: pointer;\
+        transition: all 0.2s ease;\
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\
+    }\
+    button:hover {\
+        background-color: #34495e;\
+        transform: translateY(-1px);\
+        box-shadow: 0 4px 6px rgba(0,0,0,0.15);\
     }\
     .off {\
-        background-color: maroon;\
-        color:powderblue;\
+        background-color: #c0392b;\
+        color: #ecf0f1;\
+        transition: all 0.3s ease;\
     }\
     .on {\
-        background-color: olivedrab;\
-        color:rebeccapurple;\
+        background-color: #27ae60;\
+        color: #ecf0f1;\
+        transition: all 0.3s ease;\
     }\
     .flash {\
-        background-color: orange;\
-        color:powderblue;\
+        background-color: #f39c12;\
+        color: #ecf0f1;\
+        animation: flash 0.5s ease-in-out;\
     }\
     .pf_span {\
-        margin: 2px;\
-        padding: 4px;\
-        border-style: solid;\
+        margin: 4px;\
+        padding: 8px 12px;\
+        border-radius: 4px;\
+        border: 1px solid rgba(255,255,255,0.1);\
         display: inline-block;\
+        cursor: pointer;\
+        transition: all 0.2s ease;\
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);\
+    }\
+    .pf_span:hover {\
+        transform: translateY(-1px);\
+        box-shadow: 0 4px 6px rgba(0,0,0,0.15);\
+    }\
+    @keyframes flash {\
+        0% { opacity: 1; }\
+        50% { opacity: 0.7; }\
+        100% { opacity: 1; }\
     }");
     x.appendChild(t);
     document.head.appendChild(x);
+}
+
+function refreshImage() {
+    const image = document.getElementById('current-image');
+    image.src = '/current_image?' + new Date().getTime(); // Add timestamp to prevent caching
 }

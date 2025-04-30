@@ -19,6 +19,7 @@
             const ids = {
                 "back": {type:"action", fn:"back={}", val:false},
                 "next": {type:"action", fn:"next={}", val:false},
+                "delete": {type:"action", fn:"delete={}", val:false},
                 "paused": {type:"bool", fn:"setter", val:false},
                 "display_is_on": {type:"bool", fn:"setter", val:false},
                 "shuffle": {type:"bool", fn:"setter", val:false},
@@ -37,16 +38,19 @@
                 "subdirectory": {type:"text", fn:"setter", val:""},
                 "location_filter": {type:"text", fn:"setter", val:""},
                 "tags_filter": {type:"text", fn:"setter", val:""},
-                "delete": {type:"action", fn:"delete={}", val:false},
                 "purge_files": {type:"action", fn:"purge_files={}", val:false},
                 "stop": {type:"action", fn:"stop={}", val:false},
                 };
         </script>
         <script type="text/javascript" src="pf_functions.js"></script>
-        <h1>Simple Picture Frame page</h1>
+        <h1>Picture Frame Console</h1>
+        <div id="current-image-container">
+            <img id="current-image" src="/current_image" alt="Current Picture Frame Image" 
+                 onclick="window.open('/current_image', '_blank')" style="cursor: pointer;">
+        </div>
         <div id="spans">
         </div>
         <button id="upload_button" onclick="uploadValues()">UPDATE</button>
-        <a href="/current_image">See the current image</a> (use browser BACK to return to this page)
+
     </body>
 </html>
